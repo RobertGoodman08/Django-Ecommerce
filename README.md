@@ -62,13 +62,7 @@
 	python manage.py runserver
 ```
 
-##The final functionality of the online store
 
----
-
--- User registration and authorization;
--- Email confirmation;
--- Password Recovery;
 
 
 ## Screenshots
