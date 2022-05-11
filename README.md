@@ -66,10 +66,14 @@
 
 ---
 
-User registration and authorization;
-Email confirmation;
-Password Recovery;
+--User registration and authorization;
+--Email confirmation;
+--Password Recovery;
 
 
+## Screenshots
 
+
+.. image:: ![screencapture-127-0-0-1-8000-ru-2022-05-12-00_06_24](https://user-images.githubusercontent.com/77085208/167948817-20617d8f-4735-41c6-b11c-582e8da52550.png)
+	:target: ![screencapture-127-0-0-1-8000-ru-2022-05-12-00_06_s24](https://user-images.githubusercontent.com/77085208/167948943-863ef12f-9917-4050-9285-9b07a6334e40.png)
 
