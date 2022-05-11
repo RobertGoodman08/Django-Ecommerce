@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load currency %}
+
+
+{% block  title %} {% endblock %}
+
+
+
+{% block content %}
+
+         <div id="app">
+
+
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="{% url 'index' %}">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="#">Список желаний</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-60">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary">Избранное</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 u-s-m-b-30">
+                                <div class="table-responsive">
+                                    <table class="table-p">
+                                        <tbody>
+
+                                            {% for post in new %}
+                                                <tr>
+                                                <td>
+                                                    <div class="table-p__box">
+                                                        <div class="table-p__img-wrap">
+                                                            <a href="{% url 'detail' post.id %}">
+                                                                <img class="u-img-fluid" src="{{post.image.url}}" alt="" style="height: 130px;">
+                                                            </a>
+                                                        </div>
+                                                        <div class="table-p__info">
+
+                                                            <span class="table-p__name">
+
+                                                                <a href="{% url 'detail' post.id %}">{{ post.title }}</a></span>
+
+                                                            <span class="table-p__category">
+
+                                                                <a href="shop-side-version-2.html">{{ post.brand }}</a></span>
+                                                            <ul class="table-p__variant-list">
+                                                                <li>
+
+                                                                    <span>Size: 22</span></li>
+                                                                <li>
+
+                                                                    <span>Color: Red</span></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+
+                                                    <span class="table-p__price">{{ post.price|currency:request.session.currency  }} {{ request.session.currency }}</span></td>
+                                                <td>
+                                                    <div class="table-p__input-counter-wrap">
+
+                                                        <h5>
+                                                            {% if post.variant != 'None' %}
+                                                                    <a href="{% url 'detail' post.id %}" data-tooltip="tooltip" data-placement="top" title="Добавить в корзину">посмотреть товар</a></h5>
+                                                            {% else %}
+                                                                 <h5><a href="{% url 'addtoshopcart' post.id %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Добавить в корзину">добавить в корзину</a></h5>
+
+                                                            {% endif %}
+
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="table-p__del-wrap">
+                                                        <a class="far fa-trash-alt table-p__delete-link" href="{% url 'favourite_add' post.id %}" ></a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+
+
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+
+
+
+        </div>
+        <!--====== End - App Content ======-->
+
+
+        <!--====== Main Footer ======-->
+    </div>
+
+
+{% endblock %}

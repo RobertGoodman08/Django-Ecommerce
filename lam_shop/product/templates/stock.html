@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load currency %}
+{% load i18n %}
+
+{% block title %} Акции {% endblock %}
+
+
+
+{% block content %}
+
+ <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="shop-p">
+                                <div class="shop-p__toolbar u-s-m-b-30">
+
+                                    <div class="shop-p__tool-style">
+                                        <div class="tool-style__group u-s-m-b-8">
+
+
+
+                                            <span class="js-shop-grid-target is-active">Grid</span>
+
+                                            <span class="js-shop-list-target">List</span></div>
+
+                                    </div>
+                                </div>
+                                <div class="shop-p__collection">
+                                    <div class="row is-grid-active">
+                                        {% for product in product_stock %}
+                                            <div class="col-lg-3 col-md-4 col-sm-6">
+                                            <div class="product-m">
+                                                <div class="product-m__thumb">
+
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'detail' product.product.id %}">
+
+                                                        <img class="aspect__img" src="{{ product.product.image.url }}" alt=""></a>
+
+                                                    <div class="product-m__add-cart">
+                                                        {% if product.product.variant != 'None' %}
+
+                                                        {% else %}
+                                                            <a class="btn--e-brand" data-modal="modal" href="{% url 'addtoshopcart' product.product.id %}">Добавить в корзину</a>
+                                                        {% endif %}
+
+
+                                                    </div>
+                                                </div>
+                                                <div class="product-m__content">
+                                                    <div class="product-m__category">
+
+                                                        <a href="{% url 'brand' product.product.id %}">{{ product.product.brand }}</a></div>
+                                                    <div class="product-m__name">
+
+                                                        <a href="{% url 'detail' product.product.id %}">{{ product.product.title }}</a></div>
+                                                    <div class="product-m__rating gl-rating-style">
+                                                        <i class="far fa-star{% if product.product.avaregereview > 0 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if product.product.avaregereview > 1 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if product.product.avaregereview > 2 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if product.product.avaregereview > 3 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if product.product.avaregereview > 4 %} fas fa-star{% endif %}"></i>
+
+                                                        <span class="product-m__review">({{ product.product.avaregereview|truncatechars:4}})</span></div>
+                                                    <div class="product-m__price">{{ product.product.price|currency:request.session.currency  }}  {{ request.session.currency }}</div>
+                                                    <div class="product-m__hover">
+                                                        <div class="product-m__preview-description">
+
+                                                            <span>{{ product.product.description|truncatewords:25 }}</span></div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+        </div>
+
+
+{% endblock %}

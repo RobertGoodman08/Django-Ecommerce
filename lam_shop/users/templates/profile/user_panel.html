@@ -1,0 +1,32 @@
+<div class="dash__box dash__box--bg-white dash__box--shadow u-s-m-b-30">
+    <div class="dash__pad-1">
+
+        <span class="dash__text u-s-m-b-16">Здравствуйте, {{ user.first_name}} {{ user.last_name}}</span>
+        <ul class="dash__f-list">
+            <li>
+
+                <a class="dash-active" href="{% url 'user_profile' %}">Мой Профиль</a></li>
+
+            <li>
+
+                <a href="{% url 'favourite_list' %}">избранные товары</a>
+            </li>
+            <li>
+
+                <a href="{% url 'compare_list' %}">Сравнение товаров</a>
+            </li>
+            <li>
+
+                <a href="{% url 'user_orders' %}">Отслеживать заказ</a></li>
+            <li>
+
+                <a href="{% url 'user_order_product' %}">мои заказы</a></li>
+            <li>
+
+                <a href="{% url 'my_payment_methods' %}">Мои способы оплаты</a></li>
+            <li>
+
+                <a href="{% url 'my_refunds_and_cancellations' %}">Возврат товара и Возврат денежных средств</a></li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,922 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+{% load mptt_tags %}
+
+{% load currency %}
+
+{% block title %} {{ product_detail.title }} {% endblock %}
+
+{% block content %}
+    <!--====== Main App ======-->
+    <div id="app">
+
+
+
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-t-90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-5">
+
+                            <!--====== Product Breadcrumb ======-->
+                            <div class="pd-breadcrumb u-s-m-b-30">
+                                <ul class="pd-breadcrumb__list">
+                                    <li class="has-separator">
+                                        <a href="{% url 'index' %}">Home</a>
+                                    </li>
+                                    {% if LANGUAGE_CODE == 'en' %}
+
+                                        <li class="has-separator">
+                                                    <a href="/en/category/{{ product_detail.category.id }}/">{{ product_en.category.parent|wordwrap:5 }}</a>
+                                        </li>
+                                        <li class="has-separator">
+                                                <a href="/en/category/{{ product_detail.category.id  }}/">{{ product_en.category.title }}</a>
+                                        </li>
+
+
+
+                                    {% else %}
+                                        <li class="has-separator">
+                                                    <a href="/category/{{ product_detail.category.id }}/">{{ product_detail.category.parent|wordwrap:5 }}</a>
+                                        </li>
+                                        <li class="has-separator">
+                                                <a href="/category/{{ product_detail.category.id  }}/">{{ product_detail.category.title }}</a>
+                                        </li>
+                                    {% endif %}
+                                    <li class="is-marked">
+
+                                        <a href="/brand/{{ product_detail.brand.id }}">{{ product_detail.brand.title|truncatechars:24 }}</a>
+                                    </li>
+{#                                    <li>#}
+{#                                        <input type="text"  value="http://127.0.0.1:8000{% url 'detail' product_detail.id %}" id="myInput"> <button onclick="myFunction()"><i class="fa fa-clone"></i></button>#}
+{##}
+{#                                    </li>#}
+
+
+                                </ul>
+                            </div>
+                            <!--====== End - Product Breadcrumb ======-->
+
+
+                            <!--====== Product Detail Zoom ======-->
+                            <div class="pd u-s-m-b-30">
+                                <div class="slider-fouc pd-wrap">
+                                    <div id="pd-o-initiate">
+                                      {% if variant.image_id > 0 %}
+
+
+                                          <div class="pd-o-img-wrap" data-src="{{ variant.image }}">
+
+                                            <img class="u-img-fluid" src="{{ variant.image }}" data-zoom-image="{{ variant.image }}" alt="">
+
+                                          </div>
+                                      {% else %}
+                                          <div class="pd-o-img-wrap" data-src="{{ product_detail.image.url }}">
+
+                                            <img class="u-img-fluid" src="{{ product_detail.image.url }}" data-zoom-image="{{ product_detail.image.url }}" alt="">
+
+                                          </div>
+
+                                      {% endif %}
+
+                                        {% for image in images %}
+                                            <div class="pd-o-img-wrap" data-src="{{ image.image.url }}">
+
+                                            <img class="u-img-fluid" src="{{ image.image.url }}" data-zoom-image="{{ image.image.url }}" alt="" >
+
+                                        </div>
+                                        {% endfor %}
+
+                                    </div>
+
+                                    <span class="pd-text">Click for larger zoom</span>
+                                </div>
+                                <div class="u-s-m-t-15">
+                                    <div class="slider-fouc">
+                                        <div id="pd-o-thumbnail">
+                                            <div>
+
+                                                <img class="u-img-fluid" src="{{ product_detail.image.url }}" alt="">
+                                            </div>
+                                             {% for image in images %}
+                                                <div>
+
+                                                <img class="u-img-fluid" src="{{ image.image.url }}" alt="" ></div>
+                                             {% endfor %}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--====== End - Product Detail Zoom ======-->
+                        </div>
+                        <div class="col-lg-7">
+
+                            <!--====== Product Right Side Details ======-->
+                            <div class="pd-detail">
+                                <div>
+
+                                    <span class="pd-detail__name">
+                                        {% if LANGUAGE_CODE == 'en' %}
+                                            {{ product_en.title }}
+                                        {% else %}
+                                            {{ product_detail.title }}
+                                        {% endif %}
+                                    </span></div>
+                                <div>
+                                    <div class="pd-detail__inline">
+
+                                        <span class="pd-detail__price">{{ product_detail.price|currency:request.session.currency  }}{{ request.session.currency }}</span>
+
+                                        <del class="pd-detail__del">
+                                          {% if product_detail.old_price  %}
+                                            {{ product_detail.old_price|currency:request.session.currency  }}{{ request.session.currency }}
+                                          {% endif %}
+                                    </del></div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+                                        {% if compare %}
+                                             <a class="pd-detail__stock" href="{% url 'compare_list'  %}">Перейти в сравнение </a>
+
+                                        {% else %}
+                                           <a class="pd-detail__stock" href="{% url 'compare_add' product_detail.id %}">Добавить к сравнению  </a>
+
+                                        {% endif %}
+
+
+                                    </div>
+                                    <div class="pd-detail__rating gl-rating-style">
+                                        <i class="far fa-star{% if product_detail.avaregereview > 0 %} fas fa-star{% endif %}"></i>
+                                        <i class="far fa-star{% if product_detail.avaregereview > 1 %} fas fa-star{% endif %}"></i>
+                                        <i class="far fa-star{% if product_detail.avaregereview > 2 %} fas fa-star{% endif %}"></i>
+                                        <i class="far fa-star{% if product_detail.avaregereview > 3 %} fas fa-star{% endif %}"></i>
+                                        <i class="far fa-star{% if product_detail.avaregereview > 4 %} fas fa-star{% endif %}"></i>
+
+                                        <span class="pd-detail__review u-s-m-l-4">
+
+                                            <a data-click-scroll="#view-review">{{ product_detail.avaregereview  }} Отзывы</a></span></div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+
+                                </div>
+                                <div class="u-s-m-b-15">
+
+                                    <span class="pd-detail__preview-desc">
+                                        {% if LANGUAGE_CODE == 'en' %}
+                                            {{ product_en.description }}
+                                        {% else %}
+
+                                            {{ product_detail.description }}
+                                        {% endif %}
+
+
+                                    </span></div>
+                                <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+
+                                        <span class="pd-detail__click-wrap"><i class="far fa-heart u-s-m-r-6"></i>
+
+                                            {% if fav %}
+
+                                                <a href="{% url 'favourite_add' product_detail.id %}" class="">Удалите из списка желаний</a>
+                                            {% else %}
+                                                 <a href="{% url 'favourite_add' product_detail.id %}">Добавить в список желани</a>
+                                            {% endif %}
+
+                                            </span></div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <div class="pd-detail__inline">
+
+                                        <span class="pd-detail__click-wrap">
+
+                                            <h4>Поделиться:</h4>
+
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="u-s-m-b-15">
+                                    <ul class="pd-social-list">
+                                        <li>
+
+                                            <a class="s-fb--color-hover" href="http://www.facebook.com/sharer/sharer.php?u=http://127.0.0.1:8000{{ request.get_full_path|urlencode }}"><i class="fab fa-facebook-f"></i></a>
+                                        </li>
+                                        <li>
+
+                                            <a class="s-tw--color-hover" href="https://twitter.com/share?url=http://127.0.0.1:8000{{ request.get_full_path|urlencode }}"><i class="fab fa-twitter"></i></a>
+                                        </li>
+                                        <li>
+
+                                            <a class="s-insta--color-hover" href="https://t.me/share/url?url=http://127.0.0.1:8000{{ request.get_full_path|urlencode }}"><i class="fab fa-telegram"></i></a>
+                                        </li>
+                                        <li>
+
+                                            <a class="s-wa--color-hover" href="http://vk.com/share.php?url=http://127.0.0.1:8000{{ request.get_full_path|urlencode }}"><i class="fab fa-vk"></i></a>
+                                        </li>
+                                        <li>
+
+                                            <a class="s-gplus--color-hover" href="https://plus.google.com/share?url=http://127.0.0.1:8000{{ request.get_full_path|urlencode }}"><i class="fab fa-google-plus-g"></i></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                {% if product_detail.variant == 'Size-Color' %}
+                                    <div class="u-s-m-b-15">
+                                        <form class="pd-detail__form" method="post" action="?q=selectvariant" id="post-color">
+                                            {% csrf_token %}
+                                            <div class="u-s-m-b-15">
+
+                                                <span class="pd-detail__label u-s-m-b-8">Color:</span>
+                                                <div class="pd-detail__color">
+                                                    {% for rs in colors %}
+                                                        <div class="color__radio">
+
+                                                        <input  type="hidden" name="size" id="size" value="{{ size_id }}">
+
+                                                         {% for rs in colors %}
+                                                            <input type="radio"  {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
+                                                            <li  {% if variant.id == rs.id %} class="active" {% endif %}>
+                                                                <a style="background-color:{{ rs.color.code }}; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 90px">
+                                                                    {{ rs.price }} {{ request.session.currency }} {{ rs.color }}
+                                                                </a>
+                                                                <img src="{{ rs.image }}" style="height: 70px">
+                                                            </li>
+                                                        {% endfor %}
+
+
+                                                        </div>
+                                                    {% endfor %}
+
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+                                        <form method="post" action="?q=selectvariant" id="post-color">
+                                            <div class="u-s-m-b-15">
+
+                                                <span class="pd-detail__label u-s-m-b-8">Size:</span>
+                                                {% csrf_token %}
+
+
+
+                                            <div class="pd-detail__size">
+                                                {% for rs in sizes %}
+                                                    <div class="size__radio">
+
+                                                        <input type="radio"  {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
+
+                                                        <li  {% if variant.id == rs.id %} class="active" {% endif %}>
+                                                            <a style=" color: #204d74;  width: 90px">
+                                                                {{ rs.size }}<br> {{ rs.price|currency:request.session.currency  }} {{ request.session.currency }}
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        </form>
+
+                                     </div>
+                                {% elif product_detail.variant == 'Size' %}
+
+                                    <div class="u-s-m-b-15">
+                                        <form method="post" action="?q=selectvariant" id="post-color">
+                                            <div class="u-s-m-b-15">
+
+                                                <span class="pd-detail__label u-s-m-b-8">Size:</span>
+                                                {% csrf_token %}
+
+
+
+                                            <div class="pd-detail__size">
+                                                {% for rs in sizes %}
+                                                    <div class="size__radio">
+
+                                                        <input type="radio"  {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
+
+                                                        <li  {% if variant.id == rs.id %} class="active" {% endif %}>
+                                                            <a style=" color: #204d74;  width: 90px">
+                                                                {{ rs.size }}<br> {{ rs.price|currency:request.session.currency  }} {{ request.session.currency }}
+                                                            </a>
+                                                        </li>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+
+                                        </form>
+
+
+                                    </div>
+
+
+                                {% elif product_detail.variant == 'Color' %}
+
+
+                                    <div class="u-s-m-b-15">
+
+                                        <form class="pd-detail__form" method="post" action="?q=selectvariant" id="post-color">
+                                            {% csrf_token %}
+                                            <div class="u-s-m-b-15">
+
+                                                <span class="pd-detail__label u-s-m-b-8">Color:</span>
+                                                    <div class="pd-detail__color">
+
+                                                        {% for rs in colors %}
+
+                                                            <div class="color__radio">
+
+                                                                <input type="radio"  {% if variant.id == rs.id %} checked {% endif %} name="variantid" id="variantid" value="{{ rs.id }}" onchange="this.form.submit();">
+
+                                                                 <li  {% if variant.id == rs.id %} class="active" {% endif %}>
+                                                                     <a style="background-color:{{ rs.color.code }}; color: #D9D9D9; text-shadow: 1px 1px #000000; width: 90px">
+                                                                            {{ rs.price|currency:request.session.currency   }} {{ rs.color }} <img src="{{ rs.image }}" style="height: 70px">
+                                                                    </a>
+                                                                 </li>
+
+                                                            </div>
+                                                        {% endfor %}
+
+                                                </div>
+                                            </div>
+
+                                        </form>
+
+
+                                    </div>
+
+
+
+                                {% endif %}
+
+
+                                {% if  product_detail.variant != 'None'   %}
+
+                                    <div class="u-s-m-b-15">
+                                        <form action="{% url 'addtoshopcart' product_detail.id %}" method="post"  id="addchart-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="variantid" id="variantid" value="{{ variant.id }}">
+                                            <div id="SelectedProduct">
+                                                <p><strong>Availability:</strong> {% if variant.quantity > 0  %} In Stock {% else %} Out of Stock {% endif %}</p>
+                                                <p><strong>Selected :</strong> Size : {{ variant.size }}  Color : {{ variant.color }} </p>
+                                                <h3 class="product-price">{{ variant.price|currency:request.session.currency }} {{ request.session.currency }}</h3>
+                                                <div class="qty-input">
+                                                    <span class="text-uppercase">QTY: </span>
+                                                    <input class="input" name="quantity" type="number" value="1" min="1" max="{{ variant.quantity }}">
+                                                    <button  class="btn btn--e-brand-b-2" type="submit" {% if variant.quantity < 1  %} disabled {% endif %} class="primary-btn add-to-cart">
+                                                        <i class="fa fa-shopping-cart"></i> Add to Cart
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+
+                                {% else %}
+
+                                    <div class="u-s-m-b-15">
+                                    <form class="pd-detail__form"  method="post" action="{% url 'addtoshopcart' product_detail.id %}">
+                                            {% csrf_token %}
+
+                                        <div class="pd-detail-inline-2">
+                                                <div class="u-s-m-b-15">
+
+                                                    <!--====== Input Counter ======-->
+                                                    <div class="input-counter">
+
+                                                        <span class="input-counter__minus fas fa-minus"></span>
+
+                                                        <input name="quantity" class="input-counter__text input-counter--text-primary-style" type="text" value="1" data-min="1" data-max="{{ product_detail.amount }}">
+
+                                                        <span class="input-counter__plus fas fa-plus"></span></div>
+                                                    <!--====== End - Input Counter ======-->
+                                                </div>
+                                                <div class="u-s-m-b-15">
+
+                                                    <button class="btn btn--e-brand-b-2" type="submit" {% if product_single.amount < 1  %} disabled {% endif %}>ДОБАВИТЬ В КОРЗИНУ</button></div>
+                                        </div>
+                                    </form>
+                                </div>
+
+
+                                {% endif %}
+
+
+
+
+
+
+                            </div>
+                            <!--====== End - Product Right Side Details ======-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--====== Product Detail Tab ======-->
+            <div class="u-s-p-y-90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="pd-tab">
+                                <div class="u-s-m-b-30">
+                                    <ul class="nav pd-tab__list">
+                                        <li class="nav-item">
+
+                                            <a class="nav-link" data-toggle="tab" href="#pd-desc">Описание</a></li>
+
+                                        <li class="nav-item">
+
+                                            <a class="nav-link active" id="view-review" data-toggle="tab" href="#pd-rev">Отзывы
+
+                                                <span>({{ comments.count }} )</span></a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="tab-content">
+
+                                    <!--====== Tab 1 ======-->
+                                    <div class="tab-pane" id="pd-desc">
+                                        <div class="pd-tab__desc">
+                                            <div class="u-s-m-b-15">
+                                                Просмотры: {{ product_detail.total_views }}
+                                                <p>
+                                                    {% if LANGUAGE_CODE == 'en' %}
+                                                        {{ product_en.detail|safe }}
+                                                    {% else %}
+                                                        {{ product_detail.detail|safe }}
+                                                    {% endif %}
+                                                </p>
+
+                                            </div>
+                                            <div class="u-s-m-b-30"><iframe src="https://www.youtube.com/embed/qKqSBm07KZk" allowfullscreen></iframe></div>
+
+
+                                        </div>
+                                    </div>
+                                    <!--====== End - Tab 1 ======-->
+
+
+
+
+                                    <!--====== Tab 3 ======-->
+                                    <div class="tab-pane fade show active" id="pd-rev">
+                                        <div class="pd-tab__rev">
+                                            {% for comment in comments %}
+                                                {% if user.id is not None %}
+                                                                <form method="post" action="{% url 'like' comment.pk %}">
+                                                                      {% csrf_token %}
+                                                                      <div style="margin-top: 10px; width: 30px; height: 30px; margin-left: 940px;">
+                                                                          <input type="hidden" name="text" value="{{ request.path }}">
+                                                                          <button style="background: transparent; border: none; box-shadow: none;" type="submit">
+                                                                              ДА
+                                                                              <span>{{ comment.likes.all.count }}</span>
+                                                                          </button>
+                                                                      </div>
+
+                                                                 </form>
+
+                                                                <form method="post" action="{% url 'dislike' comment.pk %}">
+                                                                      {% csrf_token %}
+                                                                      <div style="margin-top: -30px; width: 30px; height: 30px; margin-left: 980px;">
+                                                                          <input type="hidden" name="text" value="{{ request.path }}">
+                                                                          <button style="background: transparent; border: none; box-shadow: none;" type="submit">
+                                                                             Нет
+                                                                              <span>{{ comment.dislikes.all.count }}</span>
+                                                                          </button>
+                                                                      </div>
+                                                                 </form>
+                                                             {% else %}
+
+                                                            {% endif %}
+
+                                                <div class="u-s-m-b-30">
+                                                <form class="pd-tab__rev-f1">
+                                                    <div class="rev-f1__review"> <!-- Comment -->
+                                                            <div class="review-o u-s-m-b-15">
+                                                            <div class="review-o__info u-s-m-b-8">
+                                                                <span class="review-o__name">{{ comment.username }}</span>
+
+                                                                <span class="review-o__date">{{ comment.create_at }}</span></div>
+                                                            <div class="review-o__rating gl-rating-style u-s-m-b-8">
+
+
+
+
+                                                                <i class="far fa-star{% if comment.rate > 0 %}  fas fa-star {% endif %}"></i>
+                                                                <i class="far fa-star{% if comment.rate > 1 %}  fas fa-star {% endif %}"></i>
+                                                                <i class="far fa-star{% if comment.rate > 2 %} fas fa-star {% endif %}"></i>
+                                                                <i class="far fa-star{% if comment.rate > 3 %}  fas fa-star{% endif %}"></i>
+                                                                <i class="far fa-star{% if comment.rate > 4 %}  fas fa-star{% endif %}"></i>
+
+
+
+                                                                <span>({{ comment.rate }})</span></div>
+                                                            <p class="review-o__text">{{ comment.comment }}</p>
+                                                        </div>
+
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                            {% endfor %}
+
+                                            <div class="u-s-m-b-30">
+                                                <form class="pd-tab__rev-f2"  method="post" id="contactForm" novalidate="novalidate">
+                                                    {% csrf_token %}
+                                                    <h2 class="u-s-m-b-15">Добавить отзыв</h2>
+
+                                                    <span class="gl-text u-s-m-b-15">Ваш электронный адрес не будет опубликован</span>
+                                                    <div class="u-s-m-b-30">
+                                                        <div class="rev-f2__table-wrap gl-scroll">
+                                                            <table class="rev-f2__table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>
+                                                                            <div class="gl-rating-style-2">
+                                                                                <i class="fas fa-star"></i>
+
+                                                                                 <span>(1)</span>
+
+
+                                                                            </div>
+                                                                        </th>
+                                                                        <th>
+                                                                            <div class="gl-rating-style-2">
+                                                                                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+
+                                                                                  <span>(2)</span></div>
+                                                                        </th>
+                                                                        <th>
+                                                                            <div class="gl-rating-style-2">
+                                                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+
+                                                                                  <span>(3)</span></div>
+                                                                        </th>
+
+                                                                        <th>
+                                                                            <div class="gl-rating-style-2">
+                                                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+
+                                                                                 <span>(4)</span></div>
+                                                                        </th>
+
+                                                                        <th>
+                                                                            <div class="gl-rating-style-2">
+                                                                                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+
+                                                                                 <span>(5)</span></div>
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+
+                                                                            <!--====== Radio Box ======-->
+                                                                            <div class="radio-box">
+
+                                                                                <input type="radio" id="star1" name="rate" value="1">
+                                                                                <div class="radio-box__state radio-box__state--primary">
+
+                                                                                    <label class="radio-box__label" for="star-1"></label></div>
+                                                                            </div>
+                                                                            <!--====== End - Radio Box ======-->
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <!--====== Radio Box ======-->
+                                                                            <div class="radio-box">
+
+                                                                                <input type="radio"  id="star2" name="rate" value="2">
+                                                                                <div class="radio-box__state radio-box__state--primary">
+
+                                                                                    <label class="radio-box__label" for="star-1.5"></label></div>
+                                                                            </div>
+                                                                            <!--====== End - Radio Box ======-->
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <!--====== Radio Box ======-->
+                                                                            <div class="radio-box">
+
+                                                                                <input type="radio"  id="star3" name="rate" value="3">
+                                                                                <div class="radio-box__state radio-box__state--primary">
+
+                                                                                    <label class="radio-box__label" for="star-2"></label></div>
+                                                                            </div>
+                                                                            <!--====== End - Radio Box ======-->
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <!--====== Radio Box ======-->
+                                                                            <div class="radio-box">
+
+                                                                                <input type="radio"  id="star4" name="rate" value="4">
+                                                                                <div class="radio-box__state radio-box__state--primary">
+
+                                                                                    <label class="radio-box__label" for="star-2.5"></label></div>
+                                                                            </div>
+                                                                            <!--====== End - Radio Box ======-->
+                                                                        </td>
+                                                                        <td>
+
+                                                                            <!--====== Radio Box ======-->
+                                                                            <div class="radio-box">
+
+                                                                                <input type="radio" id="star5" name="rate" value="5">
+                                                                                <div class="radio-box__state radio-box__state--primary">
+
+                                                                                    <label class="radio-box__label" for="star-3"></label></div>
+                                                                            </div>
+                                                                            <!--====== End - Radio Box ======-->
+                                                                        </td>
+
+
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="rev-f2__group">
+                                                        <div class="u-s-m-b-15">
+
+                                                            <textarea class="text-area text-area--primary-style" name="comment" id="message" rows="1" placeholder="написать отзыв" required></textarea>
+                                                        </div>
+                                                        <div>
+                                                            <p class="u-s-m-b-30">
+
+
+                                                                <input class="input-text input-text--primary-style" type="text" id="username" name="username" placeholder="Ваше имя" required></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="g-recaptcha" data-sitekey="6LeVCnEfAAAAABVTFxZ_CnhYOABhQ1_CfgsRpheV" name="captcha" id="captcha"></div>
+                                                    <br>
+                                                    <div>
+
+                                                        <button class="btn btn--e-brand-shadow" type="submit">SUBMIT</button></div>
+
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--====== End - Tab 3 ======-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Product Detail Tab ======-->
+            <div class="u-s-p-b-90">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-46">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">Похожие товары</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="4">
+                                {% for circle in related_products %}
+                                    <div class="u-s-m-b-30">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'detail' circle.id %}">
+
+                                                <img class="aspect__img" src="{{ circle.image.url }}" alt=""></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+
+                                                        <a href="{% url 'detail' circle.id %}" data-modal="modal"  data-tooltip="tooltip" data-placement="top" title="просмотр"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+
+                                                        <a href="{% url 'addtoshopcart' circle.id %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Добавить в корзину"><i class="fas fa-plus-circle"></i></a></li>
+                                                    <li>
+
+                                                        {% if fav %}
+                                                            <a href="{% url 'favourite_add' circle.id %}" data-tooltip="tooltip" data-placement="top" title="удалите из списка желаний "><i class="fas fa-heart"></i></a></li>
+                                                        {% else %}
+                                                            <a href="{% url 'favourite_add' circle.id %}" data-tooltip="tooltip" data-placement="top" title="Добавить в список желаний"><i class="fas fa-heart"></i></a></li>
+                                                        {% endif %}
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <span class="product-o__category">
+
+                                            <a href="shop-side-version-2.html">{{ circle.brand }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'detail' circle.id %}">{{ circle.title|truncatewords:1 }}</a></span>
+                                        <div class="product-o__rating gl-rating-style">
+                                            <i class="far fa-star{% if circle.avaregereview > 0 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if circle.avaregereview > 1 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if circle.avaregereview > 2 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if circle.avaregereview > 3 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if circle.avaregereview > 4 %} fas fa-star{% endif %}"></i>
+
+                                            <span class="product-o__review">({{ circle.avaregereview}})</span></div>
+
+                                        <span class="product-o__price">{{ circle.price }}₽
+                                            {% if circle.old_price %}
+                                                <span class="product-o__discount">{{ circle.old_price }}₽</span>
+                                            {% endif %}
+
+
+                                        </span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+
+            <div class="u-s-p-b-90">
+
+                <!--====== Section Intro ======-->
+                <div class="section__intro u-s-m-b-46">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="section__text-wrap">
+                                    <h1 class="section__heading u-c-secondary u-s-m-b-12">Также покупают </h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Intro ======-->
+
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="slider-fouc">
+                            <div class="owl-carousel product-slider" data-item="4">
+                                {% for popular in product_popular %}
+                                    <div class="u-s-m-b-30">
+                                    <div class="product-o product-o--hover-on">
+                                        <div class="product-o__wrap">
+
+                                            <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'detail' popular.id %}">
+
+                                                <img class="aspect__img" src="{{ popular.image.url }}" alt=""></a>
+                                            <div class="product-o__action-wrap">
+                                                <ul class="product-o__action-list">
+                                                    <li>
+
+                                                        <a data-modal="modal" href="{% url 'detail' popular.id %}" data-tooltip="tooltip" data-placement="top" title="просмотр"><i class="fas fa-search-plus"></i></a></li>
+                                                    <li>
+
+                                                        <a href="{% url 'addtoshopcart' popular.id %}" data-modal="modal" data-modal-id="#add-to-cart" data-tooltip="tooltip" data-placement="top" title="Добавить в корзину"><i class="fas fa-plus-circle"></i></a></li>
+                                                    <li>
+
+                                                        {% if fav %}
+                                                            <a href="{% url 'favourite_add' popular.id %}" data-tooltip="tooltip" data-placement="top" title="удалите из списка желаний "><i class="fas fa-heart"></i></a></li>
+                                                        {% else %}
+                                                            <a href="{% url 'favourite_add' popular.id %}" data-tooltip="tooltip" data-placement="top" title="Добавить в список желаний"><i class="fas fa-heart"></i></a></li>
+                                                        {% endif %}
+
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <span class="product-o__category">
+
+                                            <a href="shop-side-version-2.html">{{ popular.brand }}</a></span>
+
+                                        <span class="product-o__name">
+
+                                            <a href="{% url 'detail' popular.id %}">{{ popular.title|truncatewords:1 }}</a></span>
+                                        <div class="product-o__rating gl-rating-style">
+                                           <i class="far fa-star{% if popular.avaregereview > 0 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if popular.avaregereview > 1 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if popular.avaregereview > 2 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if popular.avaregereview > 3 %} fas fa-star{% endif %}"></i>
+                                                    <i class="far fa-star{% if popular.avaregereview > 4 %} fas fa-star{% endif %}"></i>
+
+                                            <span class="product-o__review">({{ popular.avaregereview}})</span></div>
+
+                                        <span class="product-o__price">{{ popular.price }}₽
+                                            {% if popular.old_price %}
+                                                <span class="product-o__discount">{{ popular.old_price }}₽</span>
+                                            {% endif %}
+
+                                        </span>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 1 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+        </div>
+
+    </div>
+
+
+
+<script>
+  function formExit() {
+    document.getElementById("newForm").remove();
+  }
+
+  function myFunction(id) {
+    if (document.contains(document.getElementById("newForm"))) {
+      document.getElementById("newForm").remove();
+    }
+
+    var d1 = document.getElementById(id);
+    d1.insertAdjacentHTML('afterend',
+      '<form id="newForm" class="form-insert py-2" method="post"> \
+                <div class="d-flex justify-content-between"><h2>Reply:</h2><div><button type="button" class="btn btn-outline-secondary" onclick="formExit()"">Close</button></div></div> \
+                <label for="id_name">Name:</label> \
+                <input type="text" name="name" class="col-sm-12" maxlength="50" required="" id="id_name">\
+                <select name="parent" class="d-none" id="id_parentt"> \
+                <option value="' + id + '" selected="' + id + '"></option> \
+                </select> \
+                <label for="id_email">Email:</label> \
+                <input type="text" name="email" class="col-sm-12" maxlength="254" required="" id="id_email"> \
+                <label for="id_content">Content:</label> \
+                <textarea name="content" cols="40" rows="5" class="form-control" required id="id_content"></textarea> \
+                {% csrf_token %} \
+                <button type="submit" class="btn btn-primary btn-lg btn-block">Submit</button> \
+              </form>');
+
+  }
+
+  $('#contactForm').trigger("reset");
+</script>
+<script>
+    window.ga = function() {
+        ga.q.push(arguments)
+    };
+    ga.q = [];
+    ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto');
+    ga('send', 'pageview')
+</script>
+
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+
+
+<script>
+
+    function myFunction() {
+      /* Get the text field */
+      var copyText = document.getElementById("myInput");
+
+      /* Select the text field */
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+       /* Copy the text inside the text field */
+      navigator.clipboard.writeText(copyText.value);
+
+      /* Alert the copied text */
+      alert("Copied the text: " + copyText.value);
+    }
+
+
+</script>
+
+
+        <!--====== Main Footer ======-->
+{% endblock %}
+        <!--====== Modal Section ======-->
+

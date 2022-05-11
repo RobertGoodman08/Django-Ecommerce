@@ -1,0 +1,372 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load currency %}
+{% load i18n %}
+
+{% block title %} Корзина {% endblock %}
+
+
+
+{% block content %}
+
+<div id="app">
+
+
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="/">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="#">{% trans 'Корзина' %}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div id="checkout-msg-group">
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+
+
+            <!--====== Section 3 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="checkout-f">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <h1 class="checkout-f__h1">{% trans 'Укажите адрес доставки' %}</h1>
+                                    <form class="checkout-f__delivery" method="post">
+                                        {% csrf_token %}
+                                        <div class="u-s-m-b-30">
+                                            <div class="u-s-m-b-15">
+
+                                                <!--====== Check Box ======-->
+                                                <div class="check-box">
+
+                                                </div>
+                                                <!--====== End - Check Box ======-->
+                                            </div>
+
+                                            <!--====== First Name, Last Name ======-->
+                                            <div class="gl-inline">
+                                                <div class="u-s-m-b-15">
+
+                                                    <label class="gl-label" for="billing-fname">{% trans 'ИМЯ *' %}</label>
+
+                                                    <input name="first_name"  class="input-text input-text--primary-style" type="text" id="billing-fname" data-bill="" value="{{ user.first_name }}"></div>
+                                                <div class="u-s-m-b-15">
+
+                                                    <label class="gl-label" for="billing-lname">{% trans 'ФАМИЛИЯ *' %}</label>
+
+                                                    <input name="last_name"  class="input-text input-text--primary-style" type="text" id="billing-lname" data-bill=""  value="{{ user.last_name }}"></div>
+                                            </div>
+                                            <!--====== End - First Name, Last Name ======-->
+
+
+
+
+                                            <!--====== PHONE ======-->
+                                            <div class="u-s-m-b-15">
+
+                                                <label class="gl-label" for="billing-phone">{% trans 'ТЕЛЕФОН *' %}</label>
+
+                                                <input name="phone" class="input-text input-text--primary-style" type="text" id="billing-phone" data-bill="" value="{{ profile.phone }}"></div>
+                                            <!--====== End - PHONE ======-->
+
+
+                                            <!--====== Street Address ======-->
+                                            <div class="u-s-m-b-15">
+
+                                                <label class="gl-label" for="billing-street">{% trans 'АДРЕС УЛИЦЫ *' %}</label>
+
+                                            </div>
+                                            <div class="u-s-m-b-15">
+
+                                                <label for="billing-street-optional"></label>
+
+                                                <input name="address" class="input-text input-text--primary-style" type="text" id="billing-street-optional" placeholder="Apartment, suite unit etc. (optional)" data-bill="" value="{{ profile.address }}"></div>
+                                            <!--====== End - Street Address ======-->
+
+
+                                            <!--====== Country ======-->
+                                            <div class="u-s-m-b-15">
+
+                                                <!--====== Select Box ======-->
+
+                                                <label class="gl-label" for="billing-country">{% trans 'СТРАНА *' %}</label>
+                                                <select name="country" class="select-box select-box--primary-style"  id="id_country" data-bill="">
+                                                    <option selected value="">{{ profile.country }}</option>
+                                                    <option value="Азербайджанскую">Азербайджанскую </option>
+                                                    <option value="Армения">Армения</option>
+                                                    <option value="Беларусь">Беларусь</option>
+                                                    <option value="Казахстан">Казахстан</option>
+                                                    <option value="Кыргызскую">Кыргызскую</option>
+                                                    <option value="Молдова">Молдова</option>
+                                                    <option value="Россия">Россия</option>
+                                                    <option value="Таджикистан">Таджикистан</option>
+                                                    <option value="Туркмения">Туркмения</option>
+                                                    <option value="Узбекистан">Узбекистан</option>
+                                                    <option value="Украину">Украину</option>
+                                                </select>
+                                                <!--====== End - Select Box ======-->
+                                            </div>
+                                            <!--====== End - Country ======-->
+
+
+                                            <!--====== Town / City ======-->
+                                            <div class="u-s-m-b-15">
+
+                                                <label class="gl-label" for="billing-town-city">{% trans 'ГОРОД *' %}</label>
+
+                                                <input class="input-text input-text--primary-style" type="text"  data-bill="" name="city"   id="id_city" value="{{ profile.city }}"></div>
+                                            <!--====== End - Town / City ======-->
+
+
+
+                                            <div class="u-s-m-b-10">
+
+                                                <!--====== Check Box ======-->
+                                                <div class="check-box">
+
+                                                    <input type="checkbox" id="make-default-address" data-bill="">
+
+                                                </div>
+                                                <!--====== End - Check Box ======-->
+                                            </div>
+
+                                            <div class="collapse u-s-m-b-15" id="create-account">
+
+                                                <span class="gl-text u-s-m-b-15">Create an account by entering the information below. If you are a returning customer please login at the top of the page.</span>
+                                                <div>
+
+                                                    <label class="gl-label" for="reg-password">Account Password *</label>
+
+                                                    <input class="input-text input-text--primary-style" type="text" data-bill id="reg-password"></div>
+                                            </div>
+
+                                            <div>
+
+                                                <button class="btn btn--e-transparent-brand-b-2" type="submit">{% trans 'оформите заказ' %}</button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="col-lg-6">
+                                    <h1 class="checkout-f__h1">{% trans 'КРАТКОЕ ОПИСАНИЕ ЗАКАЗА' %}</h1>
+
+                                    <!--====== Order Summary ======-->
+                                    <div class="o-summary">
+                                        <div class="o-summary__section u-s-m-b-30">
+                                            <div class="o-summary__item-wrap gl-scroll">
+                                                {% for sh in shopcart %}
+                                                    <div class="o-card">
+                                                    <div class="o-card__flex">
+                                                        <div class="o-card__img-wrap">
+                                                             {% if variant.image_id > 0 %}
+                                                                 <img class="u-img-fluid" src="{{ sh.variant.image }}" alt="" style="height: 70px">
+
+
+                                                             {% else %}
+                                                                <img class="u-img-fluid" src="{{ sh.product.image.url }}" alt="" style="height: 70px">
+                                                             {% endif %}
+
+                                                        </div>
+                                                        <div class="o-card__info-wrap">
+
+                                                            <span class="o-card__name">
+
+                                                                <a href="{% url 'detail' sh.product.id %}">{{ sh.product.title|truncatechars:15 }}</a></span>
+
+                                                            <span class="o-card__quantity">Количества товара: {{ sh.quantity }}</span>
+
+                                                            <span class="o-card__price">
+                                                                {% if sh.product.variant == 'None' %}
+                                                                    {{ sh.product.price|currency:request.session.currency  }} {{ request.session.currency }}
+
+                                                                {% else %}
+
+                                                                     {{sh.variant.price|currency:request.session.currency  }} {{ request.session.currency }}
+                                                                {% endif %}
+
+
+
+
+                                                            </span></div>
+                                                    </div>
+
+                                                    <a class="o-card__del far fa-trash-alt" href="{% url 'deletefromcart' sh.id %}"></a>
+                                                </div>
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                        <div class="o-summary__section u-s-m-b-30">
+                                            <div class="o-summary__box">
+                                                <table class="o-summary__table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>{% trans 'Общая стоимость' %}</td>
+                                                            <td>{{ total|currency:request.session.currency  }} {{ request.session.currency }}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+{#                                        <div class="o-summary__section u-s-m-b-30">#}
+{#                                            <div class="o-summary__box">#}
+{#                                                <h1 class="checkout-f__h1">ПЛАТЕЖНАЯ ИНФОРМАЦИЯ</h1>#}
+{#                                                <form class="checkout-f__payment">#}
+{#                                                    <div class="u-s-m-b-10">#}
+{##}
+{#                                                        <!--====== Radio Box ======-->#}
+{#                                                        <div class="radio-box">#}
+{##}
+{#                                                            <input type="radio" id="cash-on-delivery" name="payment">#}
+{#                                                            <div class="radio-box__state radio-box__state--primary">#}
+{##}
+{#                                                                <label class="radio-box__label" for="cash-on-delivery">Cash on Delivery</label></div>#}
+{#                                                        </div>#}
+{#                                                        <!--====== End - Radio Box ======-->#}
+{##}
+{#                                                        <span class="gl-text u-s-m-t-6">Pay Upon Cash on delivery. (This service is only available for some countries)</span>#}
+{#                                                    </div>#}
+{#                                                    <div class="u-s-m-b-10">#}
+{##}
+{#                                                        <!--====== Radio Box ======-->#}
+{#                                                        <div class="radio-box">#}
+{##}
+{#                                                            <input type="radio" id="direct-bank-transfer" name="payment">#}
+{#                                                            <div class="radio-box__state radio-box__state--primary">#}
+{##}
+{#                                                                <label class="radio-box__label" for="direct-bank-transfer">Direct Bank Transfer</label></div>#}
+{#                                                        </div>#}
+{#                                                        <!--====== End - Radio Box ======-->#}
+{##}
+{#                                                        <span class="gl-text u-s-m-t-6">Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order will not be shipped until the funds have cleared in our account.</span>#}
+{#                                                    </div>#}
+{#                                                    <div class="u-s-m-b-10">#}
+{##}
+{#                                                        <!--====== Radio Box ======-->#}
+{#                                                        <div class="radio-box">#}
+{##}
+{#                                                            <input type="radio" id="pay-with-check" name="payment">#}
+{#                                                            <div class="radio-box__state radio-box__state--primary">#}
+{##}
+{#                                                                <label class="radio-box__label" for="pay-with-check">Pay With Check</label></div>#}
+{#                                                        </div>#}
+{#                                                        <!--====== End - Radio Box ======-->#}
+{##}
+{#                                                        <span class="gl-text u-s-m-t-6">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</span>#}
+{#                                                    </div>#}
+{#                                                    <div class="u-s-m-b-10">#}
+{##}
+{#                                                        <!--====== Radio Box ======-->#}
+{#                                                        <div class="radio-box">#}
+{##}
+{#                                                            <input type="radio" id="pay-with-card" name="payment">#}
+{#                                                            <div class="radio-box__state radio-box__state--primary">#}
+{##}
+{#                                                                <label class="radio-box__label" for="pay-with-card">Pay With Credit / Debit Card</label></div>#}
+{#                                                        </div>#}
+{#                                                        <!--====== End - Radio Box ======-->#}
+{##}
+{#                                                        <span class="gl-text u-s-m-t-6">International Credit Cards must be eligible for use within the United States.</span>#}
+{#                                                    </div>#}
+{#                                                    <div class="u-s-m-b-10">#}
+{##}
+{#                                                        <!--====== Radio Box ======-->#}
+{#                                                        <div class="radio-box">#}
+{##}
+{#                                                            <input type="radio" id="pay-pal" name="payment">#}
+{#                                                            <div class="radio-box__state radio-box__state--primary">#}
+{##}
+{#                                                                <label class="radio-box__label" for="pay-pal">Pay Pal</label></div>#}
+{#                                                        </div>#}
+{#                                                        <!--====== End - Radio Box ======-->#}
+{##}
+{#                                                        <span class="gl-text u-s-m-t-6">When you click "Place Order" below we'll take you to Paypal's site to set up your billing information.</span>#}
+{#                                                    </div>#}
+{#                                                    <div class="u-s-m-b-15">#}
+{##}
+{#                                                        <!--====== Check Box ======-->#}
+{#                                                        <div class="check-box">#}
+{##}
+{#                                                            <input type="checkbox" id="term-and-condition">#}
+{#                                                            <div class="check-box__state check-box__state--primary">#}
+{##}
+{#                                                                <label class="check-box__label" for="term-and-condition">I consent to the</label></div>#}
+{#                                                        </div>#}
+{#                                                        <!--====== End - Check Box ======-->#}
+{##}
+{#                                                        <a class="gl-link">Terms of Service.</a>#}
+{#                                                    </div>#}
+{#                                                    <div>#}
+{##}
+{#                                                        <button class="btn btn--e-brand-b-2" type="submit">PLACE ORDER</button></div>#}
+{#                                                </form>#}
+{#                                            </div>#}
+{#                                        </div>#}
+                                    </div>
+                                    <!--====== End - Order Summary ======-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 3 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+
+    </div>
+
+    <script>
+        window.ga = function() {
+            ga.q.push(arguments)
+        };
+        ga.q = [];
+        ga.l = +new Date;
+        ga('create', 'UA-XXXXX-Y', 'auto');
+        ga('send', 'pageview')
+    </script>
+
+{% endblock %}

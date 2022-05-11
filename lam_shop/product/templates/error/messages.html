@@ -1,0 +1,10 @@
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{message.tags}}" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}
+{% for error in field.errors %}
+    <p style="color: red">{{ error }}</p>
+{% endfor %}

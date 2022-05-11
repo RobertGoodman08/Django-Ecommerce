@@ -1,0 +1,510 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load mptt_tags %}
+{% load currency %}
+
+{% block title %} Category {% endblock %}
+
+{% block content %}
+    <!--====== Main App ======-->
+    <div id="app">
+
+
+
+        <!--====== App Content ======-->
+        <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-90">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-12">
+                            <div class="shop-w-master">
+                                <h1 class="shop-w-master__heading u-s-m-b-30"><i class="fas fa-filter u-s-m-r-8"></i>
+
+                                    <span>FILTERS</span></h1>
+                                <div class="shop-w-master__sidebar">
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w shop-w--style">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">Категории</h1>
+
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-category" data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-category">
+                                                <ul class="shop-w__category-list gl-scroll">
+                                                    {% if LANGUAGE_CODE == 'en' %}
+                                                        {% recursetree categories_en %}
+                                                            <li class="has-list">
+
+                                                            <a href="/category/{{ node.id  }}/">{{ node.title }}</a>
+
+                                                            <span class="category-list__text u-s-m-l-6">({{ node.posts_count }})</span>
+
+                                                            <ul style="display:block">
+                                                                <li class="">
+                                                                    {% if not node.is_leaf_node %}
+                                                                         <a href="/category/{{ node.id  }}/">{{ children }}</a>
+                                                                    {% endif %}
+
+
+
+                                                                </li>
+
+                                                            </ul>
+                                                        </li>
+                                                        {% endrecursetree %}
+
+
+
+                                                    {% else %}
+
+                                                    {% recursetree categories %}
+                                                        <li class="has-list">
+
+                                                        <a href="/category/{{ node.id  }}/">{{ node.title }}</a>
+
+                                                        <span class="category-list__text u-s-m-l-6">({{ node.posts_count }})</span>
+
+                                                        <ul style="display:block">
+                                                            <li class="">
+                                                                {% if not node.is_leaf_node %}
+                                                                     <a href="/category/{{ node.id  }}/">{{ children }}</a>
+                                                                {% endif %}
+
+
+
+                                                            </li>
+
+                                                        </ul>
+                                                    </li>
+                                                    {% endrecursetree %}
+
+                                                   {% endif %}
+
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w shop-w--style">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">Способы доставки</h1>
+
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-shipping" data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-shipping">
+                                                <ul class="shop-w__list gl-scroll">
+                                                    <li>
+
+                                                        <!--====== Check Box ======-->
+                                                        <div class="check-box">
+
+                                                            <input type="checkbox" id="free-shipping">
+                                                            <div class="check-box__state check-box__state--primary">
+
+                                                                <label class="check-box__label" for="free-shipping">Free Shipping</label></div>
+                                                        </div>
+                                                        <!--====== End - Check Box ======-->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w shop-w--style">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">Цена</h1>
+
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-price" data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-price">
+                                                <form class="shop-w__form-p">
+                                                    <div class="shop-w__form-p-wrap">
+                                                        <div>
+
+                                                            <label for="price-min"></label>
+
+                                                            <input class="input-text input-text--primary-style" type="number" min=0 id="price-min" name="view_count_min" placeholder="Min"></div>
+                                                        <div>
+
+                                                            <label for="price-max"></label>
+
+                                                            <input class="input-text input-text--primary-style" type="number"  min=0 id="price-max" placeholder="Max"></div>
+                                                        <div>
+
+                                                            <button class="btn btn--icon fas fa-angle-right btn--e-transparent-platinum-b-2" name="view_count_max" type="submit"></button></div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w shop-w--style">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">БРЕНД</h1>
+
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-manufacturer" data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-manufacturer">
+                                                {% for bra in product %}
+                                                    <ul class="shop-w__list-2">
+                                                    <li>
+
+
+                                                        <div class="list__content" >
+
+
+                                                            <span > <a  href="/brand/{{ bra.brand.id }}" style="text-decoration: black;"> {{ bra.brand }}</a></span>
+                                                        </div>
+
+
+                                                    </li>
+
+                                                </ul>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w shop-w--style">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">COLOR</h1>
+
+                                                <span class="fas fa-minus shop-w__toggle" data-target="#s-color" data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse show" id="s-color">
+                                                <ul class="shop-w__list gl-scroll">
+                                                    <li>
+                                                        <div class="color__check">
+
+                                                            <input type="checkbox" id="jet">
+
+                                                            <label class="color__check-label" for="jet" style="background-color: #333333"></label></div>
+
+                                                        <span class="shop-w__total-text">(2)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="color__check">
+
+                                                            <input type="checkbox" id="folly">
+
+                                                            <label class="color__check-label" for="folly" style="background-color: #FF0055"></label></div>
+
+                                                        <span class="shop-w__total-text">(4)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="color__check">
+
+                                                            <input type="checkbox" id="yellow">
+
+                                                            <label class="color__check-label" for="yellow" style="background-color: #FFFF00"></label></div>
+
+                                                        <span class="shop-w__total-text">(6)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="color__check">
+
+                                                            <input type="checkbox" id="granite-gray">
+
+                                                            <label class="color__check-label" for="granite-gray" style="background-color: #605F5E"></label></div>
+
+                                                        <span class="shop-w__total-text">(8)</span>
+                                                    </li>
+                                                    <li>
+                                                        <div class="color__check">
+
+                                                            <input type="checkbox" id="space-cadet">
+
+                                                            <label class="color__check-label" for="space-cadet" style="background-color: #1D3461"></label></div>
+
+                                                        <span class="shop-w__total-text">(10)</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="u-s-m-b-30">
+                                        <div class="shop-w shop-w--style">
+                                            <div class="shop-w__intro-wrap">
+                                                <h1 class="shop-w__h">SIZE</h1>
+
+                                                <span class="fas fa-minus collapsed shop-w__toggle" data-target="#s-size" data-toggle="collapse"></span>
+                                            </div>
+                                            <div class="shop-w__wrap collapse" id="s-size">
+                                                <ul class="shop-w__list gl-scroll">
+                                                    <li>
+
+                                                        <!--====== Check Box ======-->
+                                                        <div class="check-box">
+
+                                                            <input type="checkbox" id="xs">
+                                                            <div class="check-box__state check-box__state--primary">
+
+                                                                <label class="check-box__label" for="xs">XS</label></div>
+                                                        </div>
+                                                        <!--====== End - Check Box ======-->
+
+                                                        <span class="shop-w__total-text">(2)</span>
+                                                    </li>
+                                                    <li>
+
+                                                        <!--====== Check Box ======-->
+                                                        <div class="check-box">
+
+                                                            <input type="checkbox" id="small">
+                                                            <div class="check-box__state check-box__state--primary">
+
+                                                                <label class="check-box__label" for="small">Small</label></div>
+                                                        </div>
+                                                        <!--====== End - Check Box ======-->
+
+                                                        <span class="shop-w__total-text">(4)</span>
+                                                    </li>
+                                                    <li>
+
+                                                        <!--====== Check Box ======-->
+                                                        <div class="check-box">
+
+                                                            <input type="checkbox" id="medium">
+                                                            <div class="check-box__state check-box__state--primary">
+
+                                                                <label class="check-box__label" for="medium">Medium</label></div>
+                                                        </div>
+                                                        <!--====== End - Check Box ======-->
+
+                                                        <span class="shop-w__total-text">(6)</span>
+                                                    </li>
+                                                    <li>
+
+                                                        <!--====== Check Box ======-->
+                                                        <div class="check-box">
+
+                                                            <input type="checkbox" id="large">
+                                                            <div class="check-box__state check-box__state--primary">
+
+                                                                <label class="check-box__label" for="large">Large</label></div>
+                                                        </div>
+                                                        <!--====== End - Check Box ======-->
+
+                                                        <span class="shop-w__total-text">(8)</span>
+                                                    </li>
+                                                    <li>
+
+                                                        <!--====== Check Box ======-->
+                                                        <div class="check-box">
+
+                                                            <input type="checkbox" id="xl">
+                                                            <div class="check-box__state check-box__state--primary">
+
+                                                                <label class="check-box__label" for="xl">XL</label></div>
+                                                        </div>
+                                                        <!--====== End - Check Box ======-->
+
+                                                        <span class="shop-w__total-text">(10)</span>
+                                                    </li>
+                                                    <li>
+
+                                                        <!--====== Check Box ======-->
+                                                        <div class="check-box">
+
+                                                            <input type="checkbox" id="xxl">
+                                                            <div class="check-box__state check-box__state--primary">
+
+                                                                <label class="check-box__label" for="xxl">XXL</label></div>
+                                                        </div>
+                                                        <!--====== End - Check Box ======-->
+
+                                                        <span class="shop-w__total-text">(12)</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12">
+                            <div class="shop-p">
+                                <div class="shop-p__toolbar u-s-m-b-30">
+                                    <div class="shop-p__meta-wrap u-s-m-b-60">
+
+                                        <span class="shop-p__meta-text-1">НАЙДЕНО  {{ category_count.count }}  РЕЗУЛЬТАТОВ</span>
+
+                                    </div>
+                                    <div class="shop-p__tool-style">
+                                        <div class="tool-style__group u-s-m-b-8">
+
+                                            <span class="js-shop-grid-target is-active">Grid</span>
+
+                                            <span class="js-shop-list-target">List</span></div>
+                                        <form >
+                                            <div class="tool-style__form-wrap">
+                                                <div class="u-s-m-b-8">
+                                                    <select class="select-box select-box--transparent-b-2" onchange="window.location.href=this.options[this.selectedIndex].value">
+                                                        <option  selected>По умолчанию</option>
+                                                        <option value="/category/{% for prod in product %}{{ prod.category.id }}/?sort=new {% endfor %}">Сортировать По: Новейшим Товарам</option>
+                                                        <option value="/category/{% for prod in product %}{{ prod.category.id }}/?sort=h2old {% endfor %}">Сортировать По: Последние Товары</option>
+                                                        <option value="/category/{% for prod in product %}{{ prod.category.id }}/?sort=l2hl {% endfor %}">Сортировать По: Самые Продаваемые</option>
+                                                        <option value="/category/{% for prod in product %}{{ prod.category.id }}/?sort=l2hfavourites {% endfor %}">Сортировать По: Лучший Рейтинг</option>
+                                                        <option value="/category/{% for prod in product %}{{ prod.category.id }}/?sort=l2h {% endfor %}">Сортировать По: Самая Низкая Цена</option>
+                                                        <option  value="/category/{% for prod in product %}{{ prod.category.id }}/?sort=l2hl {% endfor %}">Сортировать По: Самая Высокая Цена</option>
+                                                    </select>
+
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="shop-p__collection">
+                                    <div class="row is-grid-active">
+                                        {% if LANGUAGE_CODE == 'en' %}
+                                            {% for prod in product_en %}
+                                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <div class="product-m">
+                                                <div class="product-m__thumb">
+
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'detail' prod.id %}">
+
+                                                        <img class="aspect__img" src="{{ prod.product.image.url }}" alt=""></a>
+                                                    <div class="product-m__quick-look">
+
+                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
+                                                    <div class="product-m__add-cart">
+
+                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart" href="{% url 'addtoshopcart' prod.product.id %}">ДОБАВИТЬ В КОРЗИНУ</a></div>
+                                                </div>
+                                                <div class="product-m__content">
+                                                    <div class="product-m__category">
+
+                                                        <a href="{% url 'brand' prod.id %}">{{ prod.product.brand }}</a></div>
+                                                    <div class="product-m__name">
+
+                                                        <a href="{% url 'detail' prod.id %}">{{ prod.title }}</a></div>
+                                                    <div class="product-m__rating gl-rating-style">
+                                                        <i class="far fa-star{% if prod.product.avaregereview > 0 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.product.avaregereview > 1 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.product.avaregereview > 2 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.product.avaregereview > 3 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.product.avaregereview > 4 %} fas fa-star{% endif %}"></i>
+
+                                                        <span class="product-m__review">({{ prod.product.avaregereview }})</span></div>
+                                                    <div class="product-m__price">{{ prod.product.price|currency:request.session.currency  }} {{ request.session.currency }}</div>
+                                                    <div class="product-m__hover">
+                                                        <div class="product-m__preview-description">
+
+                                                            <span>{{ prod.product.description|truncatewords:13 }}</span></div>
+                                                        <div class="product-m__wishlist">
+
+                                                            <a class="far fa-heart" href="{% url 'favourite_add' prod.id %}" data-tooltip="tooltip" data-placement="top" title="Добавить в список желани"></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+
+                                        {% else %}
+
+                                        {% for prod in product %}
+                                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                            <div class="product-m">
+                                                <div class="product-m__thumb">
+
+                                                    <a class="aspect aspect--bg-grey aspect--square u-d-block" href="{% url 'detail' prod.id %}">
+
+                                                        <img class="aspect__img" src="{{ prod.image.url }}" alt=""></a>
+                                                    <div class="product-m__quick-look">
+
+                                                        <a class="fas fa-search" data-modal="modal" data-modal-id="#quick-look" data-tooltip="tooltip" data-placement="top" title="Quick Look"></a></div>
+                                                    <div class="product-m__add-cart">
+
+                                                        <a class="btn--e-brand" data-modal="modal" data-modal-id="#add-to-cart" href="{% url 'addtoshopcart' prod.id %}">ДОБАВИТЬ В КОРЗИНУ</a></div>
+                                                </div>
+                                                <div class="product-m__content">
+                                                    <div class="product-m__category">
+
+                                                        <a href="{% url 'brand' prod.id %}">{{ prod.brand }}</a></div>
+                                                    <div class="product-m__name">
+
+                                                        <a href="{% url 'detail' prod.id %}">{{ prod.title }}</a></div>
+                                                    <div class="product-m__rating gl-rating-style">
+                                                        <i class="far fa-star{% if prod.avaregereview > 0 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.avaregereview > 1 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.avaregereview > 2 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.avaregereview > 3 %} fas fa-star{% endif %}"></i>
+                                                        <i class="far fa-star{% if prod.avaregereview > 4 %} fas fa-star{% endif %}"></i>
+
+                                                        <span class="product-m__review">({{ prod.avaregereview }})</span></div>
+                                                    <div class="product-m__price">{{ prod.price|currency:request.session.currency  }} {{ request.session.currency }}</div>
+                                                    <div class="product-m__hover">
+                                                        <div class="product-m__preview-description">
+
+                                                            <span>{{ prod.description|truncatewords:13 }}</span></div>
+                                                        <div class="product-m__wishlist">
+
+                                                            <a class="far fa-heart" href="{% url 'favourite_add' prod.id %}" data-tooltip="tooltip" data-placement="top" title="Добавить в список желани"></a></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+
+
+                                        {% endif %}
+
+                                    </div>
+                                </div>
+
+
+                                <div class="u-s-p-y-60">
+
+
+                                    <!--====== Pagination ======-->
+                                        <ul class="shop-p__pagination">
+                                        <li>
+                                            {% if product.has_previous %}
+                                                <a class="fas fa-angle-left" href="?page={{ product.previous_page_number }}"></a>
+                                            {% endif %}
+                                        </li>
+
+{#                                        <li class="is-active">#}
+{##}
+{#                                            <a href="?page={{ page_obj.next_page_number }}">{{ product.number  }} </a>#}
+{#                                        </li>#}
+                                        {% for i in nums %}
+                                            <li class="is-active">
+
+                                                <a href="?page={{ forloop.counter  }}">{{ forloop.counter }} </a>
+                                            </li>
+                                        {% endfor %}
+
+{#                                        <li class="is-active">#}
+{##}
+{#                                            <a href="?page={{ page_obj.next_page_number }}">{{ product.paginator.num_pages }} </a>#}
+{#                                        </li>#}
+
+                                        <li>
+                                            {% if product.has_next %}
+                                                <a class="fas fa-angle-right" href="?page={{ product.next_page_number }}"></a>
+
+                                            {% endif %}
+                                        </li>
+                                    </ul>
+                                    <!--====== End - Pagination ======-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+        </div>
+        <!--====== End - App Content ======-->
+
+
+    </div>
+
+
+
+{% endblock %}
+

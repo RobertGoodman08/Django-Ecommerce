@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %} Детали Заказа{% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+
+{% block content %}
+
+    <!-- BREADCRUMB -->
+    <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="{% url 'user_profile' %}">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="#">Детали Заказа</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    <!-- /BREADCRUMB -->
+    <!-- section -->
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div class="col-md-3">
+                    {% include "profile/user_panel.html" %}
+                </div>
+
+                <div class="col-md-9">
+                    <div class="order-summary clearfix">
+                        <div class="section-title">
+                            <h3 class="title">Детали Заказа</h3>
+                        </div>
+                        <table class="shopping-cart-table table">
+                            <tr>
+                                <th class="text-left">Имя и Фамилия</th>
+                                <td class="text-left">{{ order.first_name}} {{ order.last_name }} </td>
+                            </tr>
+                            <tr>
+                                <th class="text-left">Телефон</th>
+                                <td class="text-left">{{ order.phone}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-left">Адрес</th>
+                                <td class="text-left">{{ order.address}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-left">Город</th>
+                                <td class="text-left">{{ order.city}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-left">Страна</th>
+                                <td class="text-left">{{ order.country}}</td>
+                            </tr>
+                            <tr>
+                                <th class="text-left">Статус</th>
+                                <td class="text-left">{{ order.status}}</td>
+                            </tr>
+
+                            <tr>
+                                <th class="text-left">Дата</th>
+                                <td class="text-left">{{ order.create_at}}</td>
+                            </tr>
+
+                            <th class="text-left">Информация о Доставке</th>
+                            <td class="text-left">{{ order.adminnote}}</td>
+                            </tr>
+
+                        </table>
+
+                        <div class="section-title">
+                            <h4 class="title">Order Item List</h4>
+                        </div>
+
+                        <table class="shopping-cart-table table">
+                            <tr>
+                                <th class="text-left">Id </th>
+                                <th class="text-left">Product Name </th>
+                                <th class="text-left">Price </th>
+                                <th class="text-left">Qauatity </th>
+                                <th class="text-left">Amount </th>
+                                <th class="text-left">Status </th>
+                                <th class="text-left">Date </th>
+                            </tr>
+                            {% for rs in orderitems %}
+                                <tr>
+                                    <td class="text-left">
+                                        <a href="/product/{{ rs.product_id }}/{{ rs.product.slug }}">
+                                            {% if rs.variant.image_id > 0 %}
+                                                <img src="{{rs.variant.image }}" alt="" style="height: 50px">
+                                            {% else %}
+                                                <img src="{{rs.product.image.url}}" alt="" style="height: 50px">
+                                            {% endif %}
+                                        </a>
+                                    </td>
+                                    <td class="text-left">{{ rs.product.title}} {{ rs.variant.size }}   {{ rs.variant.color }}</td>
+                                    <td class="text-left">{{ rs.price}} </td>
+                                    <td class="text-left">{{ rs.quantity}} </td>
+                                    <td class="text-left">{{ rs.amount}} </td>
+                                    <td class="text-left">{{ rs.status}} </td>
+                                    <td class="text-left">{{ rs.create_at}} </td>
+                                </tr>
+                            {% endfor %}
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    <!-- /section -->
+
+{% endblock %}

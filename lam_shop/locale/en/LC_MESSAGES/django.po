@@ -1,0 +1,338 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-13 22:22+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\lam_shop\settings.py:123
+msgid "Russia"
+msgstr ""
+
+#: .\lam_shop\settings.py:124
+msgid "English"
+msgstr ""
+
+#: .\product\templates\index.html:130
+msgid "Успей купить!"
+msgstr "Have time to buy!"
+
+
+#: .\product\templates\index.html:130
+msgid "Выйти"
+msgstr "Logout"
+
+
+#: .\product\templates\index.html:130
+msgid "Зарегистрировать"
+msgstr "Register"
+
+#: .\product\templates\index.html:130
+msgid "Авторизоваться"
+msgstr "Login"
+
+#: .\product\templates\index.html:130
+msgid "Акции"
+msgstr "Stocks"
+
+#: .\product\templates\index.html:130
+msgid "Скидки"
+msgstr "Discounts"
+
+#: .\product\templates\index.html:130
+msgid "Бренды"
+msgstr "Brands"
+
+#: .\product\templates\index.html:130
+msgid "Чат поддержки"
+msgstr "Support Chat"
+
+
+# ----------
+
+#: .\product\templates\index.html:130
+msgid "Компания"
+msgstr "Company"
+
+#: .\product\templates\index.html:130
+msgid "О нас"
+msgstr "About us"
+
+#: .\product\templates\index.html:130
+msgid "Политика конфиденциальности"
+msgstr "Privacy Policy"
+
+#: .\product\templates\index.html:130
+msgid "Контакты"
+msgstr "Contacts"
+
+
+#: .\product\templates\index.html:130
+msgid "Помощь"
+msgstr "Help"
+
+#: .\product\templates\index.html:130
+msgid "Информация"
+msgstr "Information"
+
+#: .\product\templates\index.html:130
+msgid "Обмен и возврат"
+msgstr "Exchange and Refund"
+
+#: .\product\templates\index.html:130
+msgid "Перевозчикам"
+msgstr "Carriers"
+
+#: .\product\templates\index.html:130
+msgid "Откройте пункт выдачи"
+msgstr "Stocks"
+
+#: .\product\templates\index.html:130
+msgid "Франшизный пункт выдачи"
+msgstr "Open the pick-up point"
+
+#: .\product\templates\index.html:130
+msgid "Как сделать заказ"
+msgstr "How to place an order"
+
+#: .\product\templates\index.html:130
+msgid "Доставка"
+msgstr "Delivery"
+
+#: .\product\templates\index.html:130
+msgid "Оплата"
+msgstr "Payment"
+
+#: .\product\templates\index.html:130
+msgid "Частые вопросы"
+msgstr "Frequent questions"
+
+#: .\product\templates\index.html:130
+msgid "Безопасность"
+msgstr "Safety"
+
+#: .\product\templates\index.html:130
+msgid "Мы в соцсетях"
+msgstr "We are in social networks"
+
+
+# --------
+
+#: .\product\templates\index.html:130
+msgid "Валюта"
+msgstr "Currency"
+
+#: .\product\templates\index.html:130
+msgid "Настройки"
+msgstr "Settings"
+
+
+#: .\product\templates\index.html:130
+msgid "Языкы"
+msgstr "Languages"
+
+#: .\product\templates\index.html:130
+msgid "Профиль"
+msgstr "Profile"
+
+
+#: .\product\templates\index.html:130
+msgid "Контакт"
+msgstr "Contact"
+
+#: .\product\templates\index.html:130
+msgid "Почта"
+msgstr "Mail"
+
+
+
+# --------
+
+#: .\product\templates\index.html:130
+msgid "Новинки"
+msgstr "New products"
+
+#: .\product\templates\index.html:130
+msgid "Загрузить больше"
+msgstr "Load More"
+
+
+
+#: .\product\templates\index.html:130
+msgid "Выгодные предложения."
+msgstr "Favorable offers."
+
+
+#: .\product\templates\index.html:130
+msgid "Хиты продаж"
+msgstr "Sales hits"
+
+
+#: .\product\templates\index.html:130
+msgid "Лучшие зарубежные предложения!"
+msgstr "The best foreign offers!"
+
+#: .\product\templates\index.html:130
+msgid "Популярное"
+msgstr "Popular"
+
+
+#: .\product\templates\index.html:130
+msgid "Топ-скидки"
+msgstr "Top discounts"
+
+
+# ------------
+
+
+#: .\product\templates\index.html:130
+msgid "Бесплатная доставка"
+msgstr "Free shipping"
+
+#: .\product\templates\index.html:130
+msgid "Бесплатная доставка при любом заказе выше 200 долларов США "
+msgstr "Free shipping for any order above 200 USD"
+
+#: .\product\templates\index.html:130
+msgid "Делайте покупки с уверенностью"
+msgstr "Shop with confidence"
+
+#: .\product\templates\index.html:130
+msgid "Наша защита распространяется на вашу покупку от клика до доставки"
+msgstr "Our protection extends to your purchase from click to delivery"
+
+#: .\product\templates\index.html:130
+msgid "Центр помощи"
+msgstr "Help Center"
+
+#: .\product\templates\index.html:130
+msgid "Круглосуточная помощь для комфортного шоппинга"
+msgstr "Round-the-clock assistance for comfortable shopping"
+
+#: .\product\templates\index.html:130
+msgid "Популярные бренды"
+msgstr "Popular brands"
+
+
+# -----------------
+
+#: .\product\templates\index.html:130
+msgid "Регистрация"
+msgstr "Registration"
+
+
+#: .\product\templates\index.html:130
+msgid "создать учетную запись"
+msgstr "create an account"
+
+
+#: .\product\templates\index.html:130
+msgid "создать"
+msgstr "to create"
+
+
+#: .\product\templates\index.html:130
+msgid "Авторизация"
+msgstr "Authorization"
+
+
+#: .\product\templates\index.html:130
+msgid "Создать учетную запись"
+msgstr "Create an account"
+
+
+
+#: .\product\templates\index.html:130
+msgid "Если у вас есть учетная запись у нас, пожалуйста, войдите в систему"
+msgstr "If you have an account with us, please log in"
+
+#: .\product\templates\index.html:130
+msgid "Имя пользователя"
+msgstr "Username"
+
+#: .\product\templates\index.html:130
+msgid "Имя"
+msgstr "Name"
+
+#: .\product\templates\index.html:130
+msgid "Фамилия"
+msgstr "Surname"
+
+#: .\product\templates\index.html:130
+msgid "Пароль"
+msgstr "Password"
+
+#: .\product\templates\index.html:130
+msgid "Подтвердите пароль"
+msgstr "Confirm your password"
+
+
+# ----
+
+
+#: .\product\templates\index.html:130
+msgid "Корзина"
+msgstr "Cart"
+
+
+#: .\product\templates\index.html:130
+msgid "Укажите адрес доставки"
+msgstr "Specify the delivery address"
+
+
+#: .\product\templates\index.html:130
+msgid "ИМЯ *"
+msgstr "name "
+
+
+#: .\product\templates\index.html:130
+msgid "ФАМИЛИЯ *"
+msgstr "surname *"
+
+
+#: .\product\templates\index.html:130
+msgid "ТЕЛЕФОН *"
+msgstr "telephone *"
+
+
+#: .\product\templates\index.html:130
+msgid "АДРЕС УЛИЦЫ *"
+msgstr "STREET ADDRESS *"
+
+
+#: .\product\templates\index.html:130
+msgid "СТРАНА *"
+msgstr "country *"
+
+
+#: .\product\templates\index.html:130
+msgid "ГОРОД *"
+msgstr "city *"
+
+
+#: .\product\templates\index.html:130
+msgid "КРАТКОЕ ОПИСАНИЕ ЗАКАЗА"
+msgstr "BRIEF DESCRIPTION OF THE ORDER"
+
+
+#: .\product\templates\index.html:130
+msgid "Общая стоимость"
+msgstr "Total cost"
+
+
+#: .\product\templates\index.html:130
+msgid "оформите заказ"
+msgstr "place an order"

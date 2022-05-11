@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %} Моя корзина {% endblock %}
+{% block description %} {{ setting.description }} {% endblock %}
+{% block keywords %} {{ setting.keywords }} {% endblock %}
+
+
+{% block content %}
+
+    <div class="app-content">
+
+            <!--====== Section 1 ======-->
+            <div class="u-s-p-y-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="container">
+                        <div class="breadcrumb">
+                            <div class="breadcrumb__wrap">
+                                <ul class="breadcrumb__list">
+                                    <li class="has-separator">
+
+                                        <a href="{% url 'user_profile' %}">Home</a></li>
+                                    <li class="is-marked">
+
+                                        <a href="#">Моя корзина</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--====== End - Section 1 ======-->
+
+
+            <!--====== Section 2 ======-->
+            <div class="u-s-p-b-60">
+
+                <!--====== Section Content ======-->
+                <div class="section__content">
+                    <div class="dash">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12">
+
+                                    {% include 'profile/user_panel.html' %}
+
+                                    <!--====== End - Dashboard Features ======-->
+                                </div>
+                                <div class="col-lg-9 col-md-12">
+                                    <div class="dash__box dash__box--shadow dash__box--radius dash__box--bg-white u-s-m-b-30">
+                                        <div class="dash__pad-2">
+                                            <h1 class="dash__h1 u-s-m-b-14">Моя корзина</h1>
+
+                                            <span class="dash__text u-s-m-b-30">Здесь вы можете увидеть все товары, которые вы добавили в корзину.</span>
+
+                                            <div class="m-order__list">
+                                                {% for rs in orders %}
+                                                    <div class="m-order__get">
+                                                    <div class="manage-o__header u-s-m-b-30">
+                                                        <div class="dash-l-r">
+
+                                                            <div>
+                                                                <div class="dash__link dash__link--brand">
+
+                                                                    <a href="/user/orderdetail/{{ rs.id }}">Больше информации о товаре</a></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="manage-o__description">
+                                                        <div class="description__container">
+                                                            <div class="description-title">{{ rs.id}} {{ rs.first_name}}   {{ rs.last_name }}</div>
+                                                        </div>
+                                                        <div class="description__info-wrap">
+                                                            <div>
+
+                                                                <span class="manage-o__text-2 u-c-silver">Количество:
+
+                                                                    <span class="manage-o__text-2 u-c-secondary">{{ rs.quantity}}</span></span></div>
+                                                            <div>
+
+                                                                <span class="manage-o__text-2 u-c-silver">цена:
+
+                                                                    <span class="manage-o__text-2 u-c-secondary">{{ rs.total}}</span></span></div>
+                                                            <div>
+                                                                    <span class="manage-o__text-2 u-c-silver">Статус:
+
+                                                                    <span class="manage-o__text-2 u-c-secondary">{{ rs.status}}</span></span>
+                                                            </div>
+
+                                                            <div>
+
+                                                                <span class="manage-o__text-2 u-c-silver">Дата:
+
+                                                                    <span class="manage-o__text-2 u-c-secondary">{{ rs.create_at}}</span></span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--====== End - Section Content ======-->
+            </div>
+            <!--====== End - Section 2 ======-->
+        </div>
+
+{% endblock %}

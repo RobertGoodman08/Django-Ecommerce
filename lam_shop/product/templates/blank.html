@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+
+
+<div class="section">
+			<!-- container -->
+			<div class="container">
+				<!-- row -->
+				<div class="row">
+
+                    <div class="col-md-12">
+                        <div class="order-summary clearfix">
+                            <div class="section-title">
+                                <h3 class="title">заказ принят на сортировочном центре</h3>
+                            </div>
+                            <hr>
+                            <h2>Дорогой/ая  {{ user.first_name }} {{  user.last_name }}</h2>
+                            <hr>
+                            <h3>ваш заказ выполняется</h3>
+                            <h3>Код заказа : {{ ordercode }}</h3>
+                            <h3>Спасибо вам</h3>
+                            <hr>
+                            <a class="btn btn--e-brand" href="{% url 'index' %}" style="height: 25px; background-color: green">Вернуться на главную страницу</a>
+                            <br>
+                            <br>
+                            <br>
+
+                        </div>
+
+                    </div>
+
+				</div>
+				<!-- /row -->
+			</div>
+			<!-- /container -->
+		</div>
+
+
+
+
+
+
+{% endblock %}
