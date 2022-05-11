@@ -75,8 +75,8 @@
 
 This is a small demonstration of the project you can learn more about the project after installation.
 
-.. image:: ![screencapture-127-0-0-1-8000-ru-2022-05-12-00_06_24](https://user-images.githubusercontent.com/77085208/167948817-20617d8f-4735-41c6-b11c-582e8da52550.png)
-	:target: ![screencapture-127-0-0-1-8000-ru-2022-05-12-00_06_s24](https://user-images.githubusercontent.com/77085208/167948943-863ef12f-9917-4050-9285-9b07a6334e40.png)
+ ![screencapture-127-0-0-1-8000-ru-2022-05-12-00_06_24](https://user-images.githubusercontent.com/77085208/167948817-20617d8f-4735-41c6-b11c-582e8da52550.png)
+	 ![screencapture-127-0-0-1-8000-ru-2022-05-12-00_06_s24](https://user-images.githubusercontent.com/77085208/167948943-863ef12f-9917-4050-9285-9b07a6334e40.png)
 	![screencapture-127-0-0-1-8000-ru-2022-05-12-0w0_06_24](https://user-images.githubusercontent.com/77085208/167949027-9a842b11-f057-444b-9a90-bc1b95af5f0a.png)
 
 ![screencapture-127-0-0-1-8000-ru-2022-05-12-00_06_2e4](https://user-images.githubusercontent.com/77085208/167949138-f5be81cf-b114-422a-841f-7fcf087c3217.png)
